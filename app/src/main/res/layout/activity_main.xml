@@ -17,7 +17,7 @@
     <RadioGroup
         android:id="@+id/rg_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/home_bottom_parent_bg"
         android:orientation="horizontal">
@@ -38,10 +38,11 @@
             android:id="@+id/rb_community"
             style="@style/MainButtonStyle"
             android:drawableTop="@drawable/community_button_selector"
-            android:paddingTop="10dp"
+            android:paddingTop="20dp"
             android:text="发现" />
 
         <RadioButton
+            android:gravity="center_horizontal"
             android:id="@+id/rb_cart"
             style="@style/MainButtonStyle"
             android:drawableTop="@drawable/cart_button_selector"
