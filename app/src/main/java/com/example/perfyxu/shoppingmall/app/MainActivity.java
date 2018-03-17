@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 
+
 import com.example.perfyxu.shoppingmall.R;
 import com.example.perfyxu.shoppingmall.base.BaseFragment;
 import com.example.perfyxu.shoppingmall.community.fragment.CommunityFragment;
