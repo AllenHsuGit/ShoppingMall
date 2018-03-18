@@ -1,6 +1,11 @@
 package com.example.perfyxu.shoppingmall.home.fragment;
 
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.os.Environment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -18,6 +23,11 @@ import com.example.perfyxu.shoppingmall.home.bean.ResultBeanData;
 import com.example.perfyxu.shoppingmall.utils.Constants;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+
 import okhttp3.Call;
 
 
@@ -33,6 +43,7 @@ public class HomeFragment extends BaseFragment {
     private TextView tv_search_home;
     private TextView tv_message_home;
     private HomeFragmentAdapter adapter;
+
     /**
      * 返回的数据
      */
@@ -56,34 +67,37 @@ public class HomeFragment extends BaseFragment {
     public void initData() {
         super.initData();
         Log.e(TAG, "主页数据被初始化了");
+        isGrantExternalRW((Activity) mContext);
         //联网请求主页的数据
         getDataFromNet();
     }
 
     private void getDataFromNet() {
         String url = Constants.HOME_URL;
-        OkHttpUtils
+        processData(getFileFromSD(url));
+
+        /*OkHttpUtils
                 .get()
                 .url(url)
                 .build()
                 .execute(new StringCallback() {
-                    /**
+                    *//**
                      * 当请求失败的时候回调
                      * @param call
                      * @param e
                      * @param id
-                     */
+                     *//*
                     @Override
                     public void onError(Call call, Exception e, int id) {
 
                         Log.e(TAG,"首页请求失败=="+e.getMessage());
                     }
 
-                    /**
+                    *//**
                      * 当联网成功的时候回调
                      * @param response 请求成功的数据
                      * @param id
-                     */
+                     *//*
                     @Override
                     public void onResponse(String response, int id) {
                         Log.e(TAG,"首页请求成功=="+response);
@@ -92,7 +106,8 @@ public class HomeFragment extends BaseFragment {
                     }
 
 
-                });
+                });*/
+
     }
 
     private void processData(String json) {
@@ -154,5 +169,39 @@ public class HomeFragment extends BaseFragment {
             }
         });
 
+    }
+    private String getFileFromSD(String path) {
+        String result = "";
+
+        try {
+            FileInputStream f = new FileInputStream(path);
+            BufferedReader bis = new BufferedReader(new InputStreamReader(f));
+            String line = "";
+            while ((line = bis.readLine()) != null) {
+                result += line;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    /**
+     * 解决安卓6.0以上版本不能读取外部存储权限的问题
+     * @param activity
+     * @return
+     */
+    public static boolean isGrantExternalRW(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && activity.checkSelfPermission(
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+
+            activity.requestPermissions(new String[]{
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+            }, 1);
+
+            return false;
+        }
+
+        return true;
     }
 }

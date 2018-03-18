@@ -1,5 +1,7 @@
 package com.example.perfyxu.shoppingmall.utils;
 
+import android.os.Environment;
+
 /**
  * 作者：尚硅谷-杨光福 on 2016/11/14 14:39
  * 微信：yangguangfu520
@@ -9,8 +11,8 @@ package com.example.perfyxu.shoppingmall.utils;
 public class Constants {
 
 //    public static String BASE_URL = "http://192.168.1.8:8080/ShoppingMallData";
-    public static String BASE_URL = "http://192.168.1.8:8080/ShoppingMallData";
-
+//    public static String BASE_URL = "http://192.168.1.8:8080/ShoppingMallData";
+    private static final String BASE_URL = Environment.getExternalStorageDirectory()+"/ShoppingMallData";
     /**
      * 主页面的路径
      */

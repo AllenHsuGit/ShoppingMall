@@ -256,6 +256,7 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter {
                 if(dt <=0){
                     //把消息移除
                     handler.removeCallbacksAndMessages(null);
+                    tv_time_seckill.setText("00:00:00");
                 }
 
             }
