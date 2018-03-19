@@ -36,6 +36,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * 作者：尚硅谷-杨光福 on 2016/11/14 17:44
@@ -248,6 +249,7 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter {
                 super.handleMessage(msg);
                 dt = dt - 1000;
                 SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+                formatter.setTimeZone(TimeZone.getTimeZone("GMT"));//解决真机多出8小时问题
                 String time = formatter.format(new Date(dt));
                 tv_time_seckill.setText(time);
 
